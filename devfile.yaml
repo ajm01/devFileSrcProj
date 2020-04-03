@@ -1,7 +1,7 @@
 metadata:
-  name: openLibertyuoqcd
+  name: java-openLiberty
 projects:
-  - name: myapp
+  - name: user-app
     source:
       location: 'https://github.com/ajm01/devFileSrcProj.git'
       type: git
@@ -10,7 +10,7 @@ components:
   - id: redhat/java/latest
     memoryLimit: 1512Mi
     type: chePlugin
-  - mountSources: false
+  - mountSources: true
     endpoints:
       - name: 9080/tcp
         port: 9080
@@ -58,13 +58,13 @@ apiVersion: 1.0.0
 commands:
   - name: Builder
     actions:
-      - workdir: /projects/myapp
+      - workdir: /projects/user-app
         type: exec
         command: TEST_ENV=true /artifacts/bin/build.sh
         component: build
   - name: Run
     actions:
-      - workdir: /projects/myapp
+      - workdir: /projects/user-app
         type: exec
         command: /artifacts/bin/deploy.sh
         component: deploy
